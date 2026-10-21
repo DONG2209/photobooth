@@ -1,0 +1,1036 @@
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Quốc Đồng ♥ Hoàng Tiến</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital,wght@1,400;1,600&display=swap">
+<style>
+/* Thiết kế: tường ảnh photo booth kiểu biên tập — dòng thời gian 3D ở giữa,
+   ảnh in khung giấy trắng xếp nghiêng, hero dải ảnh nổi trong không gian.
+   Hai theme: tường giấy ấm (sáng) và phòng tối ấm (tối), chuyển bằng nút. */
+:root {
+  color-scheme: light;
+  --bg: #f1ebdd;
+  --bg-soft: #faf6ea;
+  --bg-deep: #e7dec9;
+  --ink: #262019;
+  --ink-2: #6b5f4d;
+  --ink-3: #9a8d78;
+  --line: #d9cfb8;
+  --accent: #a06f35;
+  --accent-ink: #fff7ea;
+  --matte: #fffdf6;
+  --matte-ink: #6b6150;
+  --shadow: 0 30px 60px -30px rgba(70, 55, 30, 0.35);
+  --shadow-h: 0 40px 90px -32px rgba(70, 55, 30, 0.45);
+  --glow: rgba(160, 111, 53, 0.13);
+  --f-disp: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0b0a08;
+    --bg-soft: #14120e;
+    --bg-deep: #070605;
+    --ink: #e9dfcd;
+    --ink-2: #a89d8c;
+    --ink-3: #6e655a;
+    --line: #262119;
+    --accent: #c9a371;
+    --accent-ink: #20160b;
+    --shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.65);
+    --shadow-h: 0 44px 100px -34px rgba(0, 0, 0, 0.8);
+    --glow: rgba(201, 163, 113, 0.1);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b0a08;
+  --bg-soft: #14120e;
+  --bg-deep: #070605;
+  --ink: #e9dfcd;
+  --ink-2: #a89d8c;
+  --ink-3: #6e655a;
+  --line: #262119;
+  --accent: #c9a371;
+  --accent-ink: #20160b;
+  --shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.65);
+  --shadow-h: 0 44px 100px -34px rgba(0, 0, 0, 0.8);
+  --glow: rgba(201, 163, 113, 0.1);
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.65;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 12;
+  background: var(--bg);
+}
+a { color: inherit; }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.wrap { max-width: 1160px; margin-inline: auto; }
+.world { perspective: 1400px; }
+
+/* ---------- header ---------- */
+.hdr {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 12px;
+  background: color-mix(in srgb, var(--bg) 84%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 65%, transparent);
+}
+.brand {
+  font-family: var(--f-disp);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+.brand b { color: var(--accent); font-weight: 700; }
+.hdr-right { display: flex; align-items: center; gap: 18px; }
+.hdr-nav { display: flex; gap: 20px; }
+.hdr-nav a {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--ink-2);
+  text-decoration: none;
+}
+.hdr-nav a:hover { color: var(--ink); }
+.tbtn {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-2);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.tbtn:hover { color: var(--ink); border-color: var(--ink-3); transform: rotate(12deg); }
+.tbtn .ic-sun { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tbtn .ic-sun { display: block; }
+  :root:not([data-theme="light"]) .tbtn .ic-moon { display: none; }
+}
+:root[data-theme="dark"] .tbtn .ic-sun { display: block; }
+:root[data-theme="dark"] .tbtn .ic-moon { display: none; }
+
+/* ---------- thanh tiến trình ---------- */
+.progress {
+  position: fixed;
+  top: env(safe-area-inset-top, 0px);
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 13;
+  pointer-events: none;
+}
+.progress i {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(28px, 5vw, 60px);
+  align-items: center;
+  padding-block: clamp(64px, 10vh, 120px) clamp(36px, 6vh, 70px);
+}
+.eyebrow {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 0;
+}
+.eyebrow::before { content: "✦ "; color: var(--accent); }
+.hero h1 {
+  font-family: var(--f-disp);
+  font-weight: 600;
+  font-size: clamp(2.6rem, 7.5vw, 6.6rem);
+  line-height: 1.03;
+  letter-spacing: -0.03em;
+  margin: 24px 0 0;
+  text-wrap: balance;
+}
+.hl1, .hl2 { display: block; overflow: hidden; padding-block: 0.04em; }
+.hl2 span {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+  font-size: 1.06em;
+  letter-spacing: -0.015em;
+}
+.hero .sub {
+  color: var(--ink-2);
+  max-width: 52ch;
+  margin: 26px 0 0;
+  font-size: 17.5px;
+}
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.chip {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--ink-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 14px;
+  background: var(--bg-soft);
+}
+.cue {
+  margin-top: 42px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--ink-3);
+  animation: pulse 2.6s ease-in-out infinite;
+}
+@keyframes pulse { 50% { opacity: 0.35; } }
+
+/* sân khấu 3D */
+.stage {
+  --mx: 0;
+  --my: 0;
+  position: relative;
+  height: clamp(300px, 46vh, 470px);
+  perspective: 1100px;
+}
+.stage::before {
+  content: "";
+  position: absolute;
+  inset: 10% 4%;
+  background: radial-gradient(50% 55% at 50% 42%, var(--glow), transparent 72%);
+  pointer-events: none;
+}
+.strip {
+  position: absolute;
+  margin: 0;
+  background: var(--matte);
+  border-radius: 8px;
+  padding: 10px 10px 14px;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease-out;
+}
+.strip img { display: block; width: 100%; height: auto; border-radius: 3px; }
+.strip-a {
+  width: clamp(230px, 33vw, 420px);
+  left: 0;
+  top: 4%;
+  transform: rotateY(calc(11deg + var(--mx) * 6deg)) translateZ(-110px) translate(calc(var(--mx) * 16px), calc(var(--my) * 10px));
+}
+.strip-b {
+  width: clamp(168px, 21vw, 276px);
+  right: 5%;
+  top: 30%;
+  transform: rotateY(calc(-13deg - var(--mx) * 6deg)) translateZ(60px) translate(calc(var(--mx) * 22px), calc(var(--my) * 14px));
+}
+.strip-in { display: block; }
+.strip-a .strip-in { animation: bobA 9s ease-in-out infinite alternate; }
+.strip-b .strip-in { animation: bobB 7s ease-in-out infinite alternate; }
+@keyframes bobA {
+  0%, 100% { transform: translateY(-7px) rotate(-1.1deg); }
+  50% { transform: translateY(7px) rotate(1.5deg); }
+}
+@keyframes bobB {
+  0%, 100% { transform: translateY(9px) rotate(1.3deg); }
+  50% { transform: translateY(-9px) rotate(-1.7deg); }
+}
+.scap {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--matte-ink);
+  text-align: center;
+  padding-top: 9px;
+}
+
+/* ---------- dải phim chạy ---------- */
+.film {
+  border-block: 1px solid var(--line);
+  padding-block: 16px;
+  overflow: hidden;
+}
+.film-track { display: flex; width: max-content; animation: film 46s linear infinite; }
+.film-set { display: flex; align-items: center; gap: 10px; flex: none; padding-right: 10px; }
+.film-set img {
+  height: 74px;
+  width: auto;
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+  border: 3px solid var(--matte);
+}
+@keyframes film { to { transform: translateX(-50%); } }
+
+/* ---------- dòng thời gian ---------- */
+.tl { position: relative; padding-block: 20px; }
+.tl::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: var(--line);
+  transform: translateX(-50%);
+}
+.tl-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: var(--accent);
+  transform: translateX(-50%) scaleY(0);
+  transform-origin: top;
+}
+.sess {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 6vw, 84px);
+  padding-block: clamp(36px, 6vh, 60px);
+  scroll-margin-top: 84px;
+}
+.sess + .sess { margin-top: clamp(40px, 7vh, 80px); }
+.sess::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 44px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 16%, transparent);
+}
+.sess.flip .sess-media { grid-column: 1; grid-row: 1; }
+.sess.flip .sess-side { grid-column: 2; grid-row: 1; }
+.sess.flip .sess-side { text-align: right; }
+.sess.flip .sess-side .info { justify-items: end; }
+
+.sdate {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  margin: 0;
+}
+.sloc {
+  font-family: var(--f-disp);
+  font-weight: 600;
+  font-size: clamp(2.1rem, 4.6vw, 3.9rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin: 14px 0 0;
+  text-wrap: balance;
+}
+.info { display: grid; gap: 0; margin-top: 26px; max-width: 380px; }
+.sess.flip .sess-side .info { margin-left: auto; }
+.info .row {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 12px;
+  padding-block: 10px;
+  font-size: 14.5px;
+  border-top: 1px dashed var(--line);
+  text-align: left;
+}
+.info .row:last-child { border-bottom: 1px dashed var(--line); }
+.info .row b {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  align-self: center;
+}
+.snote { color: var(--ink-3); font-size: 14px; max-width: 40ch; margin: 20px 0 0; }
+.sess.flip .sess-side .snote { margin-left: auto; }
+
+/* media: video + lưới ảnh */
+.sess-media { min-width: 0; perspective: 1000px; }
+.vcard {
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: var(--shadow);
+}
+.vcard video {
+  display: block;
+  width: 100%;
+  border-radius: 10px;
+  background: #000;
+}
+.vcap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 6px 3px;
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+}
+.vcap b { color: var(--accent); font-weight: 500; }
+
+.pgrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(10px, 1.7vw, 18px);
+  margin-top: clamp(16px, 2.4vw, 26px);
+}
+.print {
+  position: relative;
+  padding: 8px 8px 0;
+  background: var(--matte);
+  border-radius: 4px;
+  box-shadow: var(--shadow);
+  cursor: zoom-in;
+  transform-style: preserve-3d;
+  transition: transform 0.35s cubic-bezier(0.2, 0.6, 0.2, 1), box-shadow 0.35s ease;
+}
+.print img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+}
+.pgrid.portrait .print { aspect-ratio: 2 / 3.08; }
+.pgrid.land .print { aspect-ratio: 3 / 2.05; }
+.ix {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--matte-ink);
+  padding: 6px 1px 7px;
+}
+.ix b { font-weight: 500; color: var(--accent); }
+.print:nth-child(odd) { --rot: -1.7deg; --rx: -17deg; }
+.print:nth-child(even) { --rot: 1.5deg; --rx: 15deg; }
+.print:nth-child(3n) { --rot: 0.9deg; --rx: -11deg; }
+.print:hover {
+  transform: rotate(0deg) rotateY(-7deg) scale(1.05);
+  box-shadow: var(--shadow-h);
+  z-index: 2;
+}
+
+/* ---------- footer ---------- */
+.footer {
+  border-top: 1px solid var(--line);
+  margin-top: clamp(40px, 7vh, 80px);
+  padding-block: 28px;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: 13.5px;
+  color: var(--ink-3);
+}
+.footer .brand { font-size: 15px; }
+
+/* ---------- lightbox ---------- */
+.lb {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(8, 6, 4, 0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.lb.open { display: flex; }
+.lb img {
+  max-width: min(92vw, 1160px);
+  max-height: 82vh;
+  border-radius: 6px;
+  border: 6px solid #fffdf6;
+  box-shadow: 0 44px 120px -30px rgba(0, 0, 0, 0.85);
+}
+.lb-btn {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(20, 16, 10, 0.55);
+  color: #f2ead9;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.lb-btn:hover { background: rgba(20, 16, 10, 0.85); }
+.lb-close { top: 18px; right: 18px; }
+.lb-prev { left: 18px; top: 50%; transform: translateY(-50%); }
+.lb-next { right: 18px; top: 50%; transform: translateY(-50%); }
+.lb-count {
+  position: absolute;
+  bottom: 16px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--f-mono);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  color: rgba(242, 234, 217, 0.8);
+}
+
+/* ---------- trái tim ---------- */
+.heart {
+  width: 0.92em;
+  height: 0.92em;
+  color: var(--accent);
+  display: inline-block;
+  vertical-align: -0.07em;
+}
+.heart-beat {
+  width: 0.8em;
+  height: 0.8em;
+  transform-origin: 50% 45%;
+  animation: beat 2.6s ease-in-out infinite;
+}
+@keyframes beat {
+  0%, 100% { transform: scale(1); }
+  12% { transform: scale(1.18); }
+  24% { transform: scale(1); }
+  36% { transform: scale(1.12); }
+  48% { transform: scale(1); }
+}
+
+/* ---------- trái tim nổi trong hero ---------- */
+.floats { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.floats i {
+  position: absolute;
+  bottom: -6%;
+  left: var(--x, 20%);
+  color: var(--accent);
+  font-style: normal;
+  font-size: var(--s, 14px);
+  opacity: 0;
+  animation: floatUp var(--t, 16s) linear infinite;
+  animation-delay: var(--dl, 0s);
+}
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(-10deg); opacity: 0; }
+  8% { opacity: var(--o, 0.16); }
+  90% { opacity: var(--o, 0.16); }
+  100% { transform: translateY(-760px) rotate(12deg); opacity: 0; }
+}
+
+/* ---------- hạt phim (grain) ---------- */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/><feColorMatrix type='saturate' values='0'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>");
+}
+
+/* ---------- con trỏ tuỳ chỉnh + follower ---------- */
+.cur-dot, .cur-ring { position: fixed; top: 0; left: 0; z-index: 70; pointer-events: none; opacity: 0; }
+.cur-dot {
+  width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px;
+  border-radius: 50%;
+  background: var(--accent);
+  transition: opacity 0.2s ease;
+}
+.cur-ring {
+  width: 36px; height: 36px; margin: -18px 0 0 -18px;
+  border: 1.5px solid color-mix(in srgb, var(--accent) 65%, transparent);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  transition: width 0.25s ease, height 0.25s ease, margin 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+.cur-ring span {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+html.has-cur, html.has-cur * { cursor: none !important; }
+html.has-cur video { cursor: default !important; }
+html.has-cur.cur-live .cur-dot, html.has-cur.cur-live .cur-ring { opacity: 1; }
+html.has-cur .cur-dot.hidden { opacity: 0; }
+html.has-cur .cur-ring.link { width: 52px; height: 52px; margin: -26px 0 0 -26px; border-color: var(--accent); }
+html.has-cur .cur-ring.view {
+  width: 68px; height: 68px; margin: -34px 0 0 -34px;
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+html.has-cur .cur-ring.view span { opacity: 1; }
+html.has-cur .cur-ring.press { width: 28px; height: 28px; margin: -14px 0 0 -14px; }
+
+/* ---------- ánh loé trên ảnh in ---------- */
+.print::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  background: linear-gradient(115deg, transparent 32%, rgba(255, 252, 240, 0.5) 48%, transparent 64%);
+  transform: translateX(-135%);
+  transition: transform 0.9s ease;
+  pointer-events: none;
+}
+.print:hover::after { transform: translateX(135%); }
+
+/* dừng dải phim khi rê chuột */
+@media (hover: hover) {
+  .film:hover .film-track { animation-play-state: paused; }
+}
+
+/* chấm thời gian nảy khi hiện */
+html.js .sess.in::before { animation: pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes pop {
+  from { transform: translateX(-50%) scale(0); }
+  to { transform: translateX(-50%) scale(1); }
+}
+
+/* ---------- hiệu ứng (chỉ khi JS chạy) ---------- */
+html.js .rv {
+  opacity: 0;
+  transform: translateY(30px) rotateX(9deg);
+  transform-origin: 50% 0;
+  transition: opacity 0.8s ease, transform 0.9s cubic-bezier(0.2, 0.6, 0.2, 1);
+  transition-delay: var(--d, 0ms);
+}
+html.js .rv.in { opacity: 1; transform: none; }
+html.js .print.rv {
+  opacity: 0;
+  transform: translateY(38px) rotate(var(--rot, 0deg)) rotateY(var(--rx, -14deg));
+  transition: opacity 0.8s ease, transform 0.9s cubic-bezier(0.2, 0.6, 0.2, 1);
+  transition-delay: var(--d, 0ms);
+}
+html.js .print.rv.in { opacity: 1; transform: rotate(var(--rot, 0deg)); }
+html.js .print.rv.in:hover {
+  transform: rotate(0deg) rotateY(-7deg) scale(1.05);
+  box-shadow: var(--shadow-h);
+}
+html.js .hl1 span, html.js .hl2 span {
+  display: block;
+  animation: rise 0.9s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+}
+html.js .hl2 span { animation-delay: 0.13s; }
+@keyframes rise { from { transform: translateY(105%); } to { transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  html.js .rv, html.js .print.rv { opacity: 1; transform: none; transition: none; }
+  html.js .hl1 span, html.js .hl2 span { animation: none; }
+  .film-track, .strip-in, .cue, .heart-beat, .floats i { animation: none; }
+  .floats { display: none; }
+  html.js .sess.in::before { animation: none; }
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; }
+  .stage { height: clamp(250px, 38vh, 330px); max-width: 460px; }
+  .hdr-nav { display: none; }
+  .tl::before, .tl-fill { left: 15px; }
+  .sess { grid-template-columns: 1fr; gap: 26px; padding-left: 40px; }
+  .sess + .sess { margin-top: 30px; }
+  .sess::before { left: 15px; top: 50px; }
+  .sess.flip .sess-media { grid-column: auto; grid-row: auto; }
+  .sess.flip .sess-side { grid-column: auto; grid-row: auto; text-align: left; }
+  .sess.flip .sess-side .info { justify-items: start; margin-left: 0; }
+  .sess.flip .sess-side .snote { margin-left: 0; }
+  .pgrid { grid-template-columns: repeat(2, 1fr); }
+  .print:nth-child(odd) { --rot: -1.2deg; }
+  .print:nth-child(even) { --rot: 1.1deg; }
+}
+</style>
+
+<div class="progress" aria-hidden="true"><i id="progress"></i></div>
+
+<header class="hdr">
+  <a class="brand" href="#top">Quốc Đồng <svg class="heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/></svg> Hoàng Tiến</a>
+  <div class="hdr-right">
+    <nav class="hdr-nav">
+      <a href="#2609">26/09</a>
+      <a href="#2010">20/10</a>
+    </nav>
+    <button class="tbtn" id="theme-btn" type="button" aria-label="Đổi nền sáng / tối">
+      <svg class="ic-moon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 9.6A5.5 5.5 0 0 1 6.4 2.5a5.5 5.5 0 1 0 7.1 7.1Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+      <svg class="ic-sun" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="3.2" stroke="currentColor" stroke-width="1.4"/><path d="M8.5 1v2M8.5 14v2M1 8.5h2M14 8.5h2M3.2 3.2l1.4 1.4M12.4 12.4l1.4 1.4M13.8 3.2l-1.4 1.4M4.6 12.4l-1.4 1.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="wrap world" id="top">
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="floats" aria-hidden="true">
+      <i style="--x:5%;--s:22px;--t:16s;--dl:0s;--o:.18">♥</i>
+      <i style="--x:14%;--s:32px;--t:21s;--dl:3s;--o:.14">♥</i>
+      <i style="--x:24%;--s:20px;--t:14s;--dl:8s;--o:.18">✦</i>
+      <i style="--x:33%;--s:28px;--t:19s;--dl:1s;--o:.15">♥</i>
+      <i style="--x:42%;--s:24px;--t:17s;--dl:6s;--o:.17">♥</i>
+      <i style="--x:51%;--s:34px;--t:23s;--dl:11s;--o:.13">♥</i>
+      <i style="--x:59%;--s:21px;--t:15s;--dl:4s;--o:.18">✦</i>
+      <i style="--x:68%;--s:30px;--t:20s;--dl:9s;--o:.14">♥</i>
+      <i style="--x:77%;--s:25px;--t:16s;--dl:2s;--o:.17">♥</i>
+      <i style="--x:84%;--s:20px;--t:22s;--dl:7s;--o:.16">✦</i>
+      <i style="--x:92%;--s:33px;--t:18s;--dl:13s;--o:.13">♥</i>
+      <i style="--x:96%;--s:26px;--t:24s;--dl:5s;--o:.15">♥</i>
+    </div>
+    <div>
+      <p class="eyebrow">Photo booth · ký ức 2026</p>
+      <h1>
+        <span class="hl1"><span>Quốc Đồng</span></span>
+        <span class="hl2"><span><svg class="heart heart-beat" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/></svg> Hoàng Tiến</span></span>
+      </h1>
+      <p class="sub">Mỗi buổi chụp là một ký ức — ảnh và video từ Photo Easel, sắp xếp theo dòng thời gian. Cuộn xuống để trở về những khoảnh khắc đầu tiên — bộ sưu tập sẽ dài thêm theo từng hôm.</p>
+      <div class="chips">
+        <span class="chip">2 buổi chụp</span>
+        <span class="chip">18 khoảnh khắc</span>
+        <span class="chip">2 video</span>
+        <span class="chip">còn tiếp ✦</span>
+      </div>
+      <p class="cue">↓ cuộn xuống — dòng thời gian ở phía dưới</p>
+    </div>
+    <div class="stage" aria-hidden="true">
+      <figure class="strip strip-a">
+        <span class="strip-in"><img src="gallery/2609/strip.png" alt="Dải ảnh photo booth Hoàng Cầu 26/09/2026" width="1100" height="733"></span>
+        <figcaption class="scap">Photo Easel — 26 · 09 · 2026</figcaption>
+      </figure>
+      <figure class="strip strip-b">
+        <span class="strip-in"><img src="gallery/2010/strip.png" alt="Dải ảnh photo booth Phạm Ngọc Thạch 20/10/2026" width="733" height="1100"></span>
+        <figcaption class="scap">Photo Easel — 20 · 10 · 2026</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- DẢI PHIM -->
+  <div class="film" aria-hidden="true">
+    <div class="film-track">
+      <div class="film-set">
+        <img src="gallery/2609/01.jpg" alt="" loading="lazy"><img src="gallery/2609/02.jpg" alt="" loading="lazy"><img src="gallery/2609/03.jpg" alt="" loading="lazy"><img src="gallery/2609/04.jpg" alt="" loading="lazy"><img src="gallery/2609/05.jpg" alt="" loading="lazy"><img src="gallery/2609/06.jpg" alt="" loading="lazy"><img src="gallery/2609/07.jpg" alt="" loading="lazy"><img src="gallery/2609/08.jpg" alt="" loading="lazy"><img src="gallery/2609/09.jpg" alt="" loading="lazy"><img src="gallery/2010/01.jpg" alt="" loading="lazy"><img src="gallery/2010/02.jpg" alt="" loading="lazy"><img src="gallery/2010/03.jpg" alt="" loading="lazy"><img src="gallery/2010/04.jpg" alt="" loading="lazy"><img src="gallery/2010/05.jpg" alt="" loading="lazy"><img src="gallery/2010/06.jpg" alt="" loading="lazy"><img src="gallery/2010/07.jpg" alt="" loading="lazy"><img src="gallery/2010/08.jpg" alt="" loading="lazy"><img src="gallery/2010/09.jpg" alt="" loading="lazy">
+      </div>
+      <div class="film-set">
+        <img src="gallery/2609/01.jpg" alt="" loading="lazy"><img src="gallery/2609/02.jpg" alt="" loading="lazy"><img src="gallery/2609/03.jpg" alt="" loading="lazy"><img src="gallery/2609/04.jpg" alt="" loading="lazy"><img src="gallery/2609/05.jpg" alt="" loading="lazy"><img src="gallery/2609/06.jpg" alt="" loading="lazy"><img src="gallery/2609/07.jpg" alt="" loading="lazy"><img src="gallery/2609/08.jpg" alt="" loading="lazy"><img src="gallery/2609/09.jpg" alt="" loading="lazy"><img src="gallery/2010/01.jpg" alt="" loading="lazy"><img src="gallery/2010/02.jpg" alt="" loading="lazy"><img src="gallery/2010/03.jpg" alt="" loading="lazy"><img src="gallery/2010/04.jpg" alt="" loading="lazy"><img src="gallery/2010/05.jpg" alt="" loading="lazy"><img src="gallery/2010/06.jpg" alt="" loading="lazy"><img src="gallery/2010/07.jpg" alt="" loading="lazy"><img src="gallery/2010/08.jpg" alt="" loading="lazy"><img src="gallery/2010/09.jpg" alt="" loading="lazy">
+      </div>
+    </div>
+  </div>
+
+  <!-- DÒNG THỜI GIAN -->
+  <div class="tl" id="tl">
+    <div class="tl-fill" id="tl-fill" aria-hidden="true"></div>
+
+    <!-- 26/09 — HOÀNG CẦU -->
+    <article class="sess" id="2609">
+      <div class="sess-side">
+        <p class="sdate rv">26 · 09 · 2026</p>
+        <h2 class="sloc rv" style="--d:60ms">Hoàng Cầu</h2>
+        <div class="info rv" style="--d:120ms">
+          <div class="row"><b>Tên</b><span>Photo Easel</span></div>
+          <div class="row"><b>Địa điểm</b><span>Hoàng Cầu</span></div>
+          <div class="row"><b>Thời gian</b><span>26/09/2026</span></div>
+        </div>
+        <p class="snote rv" style="--d:180ms">Chín khung hình dọc — từ khoảnh khắc đầu tiên đến khung hình cuối cùng.</p>
+      </div>
+      <div class="sess-media">
+        <div class="vcard rv">
+          <video controls playsinline preload="metadata" poster="gallery/2609/01.jpg">
+            <source src="gallery/2609/video.mp4" type="video/mp4">
+            Trình duyệt không hỗ trợ phát video.
+          </video>
+          <div class="vcap"><span>Video buổi chụp</span><b>26 · 09 · 2026</b></div>
+        </div>
+        <div class="pgrid portrait">
+          <figure class="print rv" style="--d:0ms"><img src="gallery/2609/01.jpg" alt="Ảnh photo booth Hoàng Cầu — khung 1" loading="lazy" width="733" height="1100"><figcaption class="ix"><span>Ảnh</span><b>01/09</b></figcaption></figure>
+          <figure class="print rv" style="--d:60ms"><img src="gallery/2609/02.jpg" alt="Ảnh photo booth Hoàng Cầu — khung 2" loading="lazy" width="733" height="1100"><figcaption class="ix"><span>Ảnh</span><b>02/09</b></figcaption></figure>
+          <figure class="print rv" style="--d:120ms"><img src="gallery/2609/03.jpg" alt="Ảnh photo booth Hoàng Cầu — khung 3" loading="lazy" width="733" height="1100"><figcaption class="ix"><span>Ảnh</span><b>03/09</b></figcaption></figure>
+          <figure class="print rv" style="--d:0ms"><img src="gallery/2609/04.jpg" alt="Ảnh photo booth Hoàng Cầu — khung 4" loading="lazy" width="733" height="1100"><figcaption class="ix"><span>Ảnh</span><b>04/09</b></figcaption></figure>
+          <figure class="print rv" style="--d:60ms"><img src="gallery/2609/05.jpg" alt="Ảnh photo booth Hoàng Cầu — khung 5" loading="lazy" width="733" height="1100"><figcaption class="ix"><span>Ảnh</span><b>05/09</b></figcaption></figure>
+          <figure class="print rv" style="--d:120ms"><img src="gallery/2609/06.jpg" alt="Ảnh photo booth Hoàng Cầu — khung 6" loading="lazy" width="733" height="1100"><figcaption class="ix"><span>Ảnh</span><b>06/09</b></figcaption></figure>
+          <figure class="print rv" style="--d:0ms"><img src="gallery/2609/07.jpg" alt="Ảnh photo booth Hoàng Cầu — khung 7" loading="lazy" width="733" height="1100"><figcaption class="ix"><span>Ảnh</span><b>07/09</b></figcaption></figure>
+          <figure class="print rv" style="--d:60ms"><img src="gallery/2609/08.jpg" alt="Ảnh photo booth Hoàng Cầu — khung 8" loading="lazy" width="733" height="1100"><figcaption class="ix"><span>Ảnh</span><b>08/09</b></figcaption></figure>
+          <figure class="print rv" style="--d:120ms"><img src="gallery/2609/09.jpg" alt="Ảnh photo booth Hoàng Cầu — khung 9" loading="lazy" width="733" height="1100"><figcaption class="ix"><span>Ảnh</span><b>09/09</b></figcaption></figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- 20/10 — VINCOM PHẠM NGỌC THẠCH -->
+    <article class="sess flip" id="2010">
+      <div class="sess-side">
+        <p class="sdate rv">20 · 10 · 2026</p>
+        <h2 class="sloc rv" style="--d:60ms">Phạm Ngọc Thạch</h2>
+        <div class="info rv" style="--d:120ms">
+          <div class="row"><b>Tên</b><span>Photo Easel</span></div>
+          <div class="row"><b>Địa điểm</b><span>Vincom Phạm Ngọc Thạch</span></div>
+          <div class="row"><b>Thời gian</b><span>20/10/2026</span></div>
+        </div>
+        <p class="snote rv" style="--d:180ms">Chín khung hình ngang — một buổi tối giữa lòng Vincom.</p>
+      </div>
+      <div class="sess-media">
+        <div class="vcard rv">
+          <video controls playsinline preload="metadata" poster="gallery/2010/01.jpg">
+            <source src="gallery/2010/video.mp4" type="video/mp4">
+            Trình duyệt không hỗ trợ phát video.
+          </video>
+          <div class="vcap"><span>Video buổi chụp</span><b>20 · 10 · 2026</b></div>
+        </div>
+        <div class="pgrid land">
+          <figure class="print rv" style="--d:0ms"><img src="gallery/2010/01.jpg" alt="Ảnh photo booth Phạm Ngọc Thạch — khung 1" loading="lazy" width="1100" height="733"><figcaption class="ix"><span>Ảnh</span><b>01/09</b></figcaption></figure>
+          <figure class="print rv" style="--d:60ms"><img src="gallery/2010/02.jpg" alt="Ảnh photo booth Phạm Ngọc Thạch — khung 2" loading="lazy" width="1100" height="733"><figcaption class="ix"><span>Ảnh</span><b>02/09</b></figcaption></figure>
+          <figure class="print rv" style="--d:120ms"><img src="gallery/2010/03.jpg" alt="Ảnh photo booth Phạm Ngọc Thạch — khung 3" loading="lazy" width="1100" height="733"><figcaption class="ix"><span>Ảnh</span><b>03/09</b></figcaption></figure>
+          <figure class="print rv" style="--d:0ms"><img src="gallery/2010/04.jpg" alt="Ảnh photo booth Phạm Ngọc Thạch — khung 4" loading="lazy" width="1100" height="733"><figcaption class="ix"><span>Ảnh</span><b>04/09</b></figcaption></figure>
+          <figure class="print rv" style="--d:60ms"><img src="gallery/2010/05.jpg" alt="Ảnh photo booth Phạm Ngọc Thạch — khung 5" loading="lazy" width="1100" height="733"><figcaption class="ix"><span>Ảnh</span><b>05/09</b></figcaption></figure>
+          <figure class="print rv" style="--d:120ms"><img src="gallery/2010/06.jpg" alt="Ảnh photo booth Phạm Ngọc Thạch — khung 6" loading="lazy" width="1100" height="733"><figcaption class="ix"><span>Ảnh</span><b>06/09</b></figcaption></figure>
+          <figure class="print rv" style="--d:0ms"><img src="gallery/2010/07.jpg" alt="Ảnh photo booth Phạm Ngọc Thạch — khung 7" loading="lazy" width="1100" height="733"><figcaption class="ix"><span>Ảnh</span><b>07/09</b></figcaption></figure>
+          <figure class="print rv" style="--d:60ms"><img src="gallery/2010/08.jpg" alt="Ảnh photo booth Phạm Ngọc Thạch — khung 8" loading="lazy" width="1100" height="733"><figcaption class="ix"><span>Ảnh</span><b>08/09</b></figcaption></figure>
+          <figure class="print rv" style="--d:120ms"><img src="gallery/2010/09.jpg" alt="Ảnh photo booth Phạm Ngọc Thạch — khung 9" loading="lazy" width="1100" height="733"><figcaption class="ix"><span>Ảnh</span><b>09/09</b></figcaption></figure>
+        </div>
+      </div>
+    </article>
+  </div>
+
+</main>
+
+<footer class="footer wrap">
+  <a class="brand" href="#top">Quốc Đồng <svg class="heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/></svg> Hoàng Tiến</a>
+  <span>Photo Easel · Hoàng Cầu — 26/09/2026 · Vincom Phạm Ngọc Thạch — 20/10/2026</span>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Xem ảnh">
+  <button class="lb-btn lb-close" id="lb-close" type="button" aria-label="Đóng">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 3l12 12M15 3L3 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+  </button>
+  <button class="lb-btn lb-prev" id="lb-prev" type="button" aria-label="Ảnh trước">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M11 3L5.5 9 11 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button class="lb-btn lb-next" id="lb-next" type="button" aria-label="Ảnh sau">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M7 3l5.5 6L7 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <img id="lb-img" src="" alt="">
+  <p class="lb-count" id="lb-count"></p>
+</div>
+
+<div class="cur-dot" id="cur-dot" aria-hidden="true"></div>
+<div class="cur-ring" id="cur-ring" aria-hidden="true"><span>Xem</span></div>
+
+<script>
+document.documentElement.classList.add("js");
+
+var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* --- theme sáng / tối --- */
+var themeBtn = document.getElementById("theme-btn");
+function setTheme(t) {
+  if (t === "light" || t === "dark") {
+    document.documentElement.setAttribute("data-theme", t);
+  } else {
+    document.documentElement.removeAttribute("data-theme");
+  }
+  themeBtn.setAttribute("aria-label", t === "dark" ? "Chuyển nền sáng" : "Chuyển nền tối");
+}
+var saved = null;
+try { saved = localStorage.getItem("qdht-theme"); } catch (e) {}
+if (saved === "light" || saved === "dark") { setTheme(saved); }
+themeBtn.addEventListener("click", function () {
+  var cur = document.documentElement.getAttribute("data-theme");
+  var next = cur === "dark" ? "light" : "dark";
+  setTheme(next);
+  try { localStorage.setItem("qdht-theme", next); } catch (e) {}
+});
+
+/* --- thanh tiến trình --- */
+var progress = document.getElementById("progress");
+var heroEl = document.getElementById("hero");
+var heroStage = heroEl.querySelector(".stage");
+function onScroll() {
+  var h = document.documentElement;
+  var max = h.scrollHeight - h.clientHeight;
+  progress.style.transform = "scaleX(" + (max > 0 ? h.scrollTop / max : 0) + ")";
+  if (!reduceMotion && h.scrollTop < heroEl.offsetHeight) {
+    heroStage.style.transform = "translateY(" + (h.scrollTop * 0.09) + "px)";
+  }
+}
+onScroll();
+window.addEventListener("scroll", onScroll, { passive: true });
+
+/* --- dòng thời gian: đường kẻ đầy dần theo cuộn --- */
+var tl = document.getElementById("tl");
+var tlFill = document.getElementById("tl-fill");
+function fillTimeline() {
+  var r = tl.getBoundingClientRect();
+  var vh = window.innerHeight || document.documentElement.clientHeight;
+  var p = (vh * 0.55 - r.top) / r.height;
+  p = Math.max(0, Math.min(1, p));
+  tlFill.style.transform = "translateX(-50%) scaleY(" + p + ")";
+}
+window.addEventListener("scroll", fillTimeline, { passive: true });
+fillTimeline();
+
+/* --- hiệu ứng xuất hiện 3D --- */
+var rv = document.querySelectorAll(".rv");
+if (reduceMotion) {
+  rv.forEach(function (el) { el.classList.add("in"); });
+} else {
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.classList.add("in");
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  rv.forEach(function (el) { io.observe(el); });
+}
+
+/* --- parallax chuột ở hero (chỉ chuột, màn hình rộng) --- */
+var hero = document.getElementById("hero");
+if (!reduceMotion && window.matchMedia("(pointer: fine)").matches && window.innerWidth > 860) {
+  hero.addEventListener("mousemove", function (ev) {
+    var r = hero.getBoundingClientRect();
+    var mx = (ev.clientX - r.left) / r.width * 2 - 1;
+    var my = (ev.clientY - r.top) / r.height * 2 - 1;
+    hero.querySelector(".stage").style.setProperty("--mx", mx.toFixed(3));
+    hero.querySelector(".stage").style.setProperty("--my", my.toFixed(3));
+  });
+  hero.addEventListener("mouseleave", function () {
+    var st = hero.querySelector(".stage");
+    st.style.setProperty("--mx", "0");
+    st.style.setProperty("--my", "0");
+  });
+}
+
+/* --- lightbox --- */
+var lb = document.getElementById("lb");
+var lbImg = document.getElementById("lb-img");
+var lbCount = document.getElementById("lb-count");
+var lbList = [];
+var lbIndex = 0;
+var lbTrigger = null;
+
+function lbShow(i) {
+  lbIndex = (i + lbList.length) % lbList.length;
+  lbImg.src = lbList[lbIndex];
+  lbCount.textContent = (lbIndex + 1) + " / " + lbList.length;
+  lb.classList.add("open");
+  document.body.style.overflow = "hidden";
+  document.getElementById("lb-close").focus();
+}
+function lbClose() {
+  lb.classList.remove("open");
+  document.body.style.overflow = "";
+  if (lbTrigger) { lbTrigger.focus(); lbTrigger = null; }
+}
+document.querySelectorAll(".pgrid").forEach(function (grid) {
+  grid.querySelectorAll(".print img").forEach(function (img) {
+    img.addEventListener("click", function () {
+      lbList = Array.prototype.map.call(grid.querySelectorAll(".print img"), function (i) { return i.src; });
+      lbTrigger = img;
+      lbShow(lbList.indexOf(img.src));
+    });
+  });
+});
+document.getElementById("lb-close").addEventListener("click", lbClose);
+document.getElementById("lb-prev").addEventListener("click", function () { lbShow(lbIndex - 1); });
+document.getElementById("lb-next").addEventListener("click", function () { lbShow(lbIndex + 1); });
+lb.addEventListener("click", function (ev) { if (ev.target === lb) { lbClose(); } });
+document.addEventListener("keydown", function (ev) {
+  if (!lb.classList.contains("open")) { return; }
+  if (ev.key === "Escape") { lbClose(); }
+  else if (ev.key === "ArrowLeft") { lbShow(lbIndex - 1); }
+  else if (ev.key === "ArrowRight") { lbShow(lbIndex + 1); }
+});
+
+/* --- con trỏ tuỳ chỉnh + follower (chỉ chuột) --- */
+if (window.matchMedia("(pointer: fine)").matches && !reduceMotion) {
+  var curDot = document.getElementById("cur-dot");
+  var curRing = document.getElementById("cur-ring");
+  var cx = 0, cy = 0, tx = 0, ty = 0;
+  document.documentElement.classList.add("has-cur");
+  document.addEventListener("mousemove", function (ev) {
+    tx = ev.clientX; ty = ev.clientY;
+    document.documentElement.classList.add("cur-live");
+    curDot.style.left = tx + "px";
+    curDot.style.top = ty + "px";
+  });
+  document.documentElement.addEventListener("mouseleave", function () {
+    document.documentElement.classList.remove("cur-live");
+  });
+  (function follow() {
+    cx += (tx - cx) * 0.16;
+    cy += (ty - cy) * 0.16;
+    curRing.style.left = cx + "px";
+    curRing.style.top = cy + "px";
+    requestAnimationFrame(follow);
+  })();
+  document.addEventListener("mouseover", function (ev) {
+    var t = ev.target;
+    if (t.closest && t.closest(".print")) { curRing.classList.add("view"); curDot.classList.add("hidden"); }
+    else if (t.closest && t.closest("a, button, video")) { curRing.classList.add("link"); }
+  });
+  document.addEventListener("mouseout", function (ev) {
+    var t = ev.target;
+    if (!(t.closest && t.closest(".print"))) { curRing.classList.remove("view"); curDot.classList.remove("hidden"); }
+    if (!(t.closest && t.closest("a, button, video"))) { curRing.classList.remove("link"); }
+  });
+  document.addEventListener("mousedown", function () { curRing.classList.add("press"); });
+  document.addEventListener("mouseup", function () { curRing.classList.remove("press"); });
+
+  /* --- ảnh nghiêng 3D theo chuột --- */
+  document.querySelectorAll(".print").forEach(function (p) {
+    p.addEventListener("mousemove", function (ev) {
+      var r = p.getBoundingClientRect();
+      var px = (ev.clientX - r.left) / r.width * 2 - 1;
+      var py = (ev.clientY - r.top) / r.height * 2 - 1;
+      p.style.transform = "rotate(0deg) rotateX(" + (py * -7).toFixed(2) + "deg) rotateY(" + (px * 9).toFixed(2) + "deg) scale(1.04)";
+    });
+    p.addEventListener("mouseleave", function () { p.style.transform = ""; });
+  });
+}
+</script>
