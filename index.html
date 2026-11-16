@@ -292,7 +292,7 @@ dialog{border:1px solid #b18b6b40;color:var(--paper);background:#1c161c;padding:
       clearTimeout(scWatchdog);
       scWatchdog = setTimeout(function () {
         if (musicOn && playlist[currentTrack].kind === 'soundcloud' && !scPlaying) { currentTrack = fileTrackIndex; startTrack(); toast('Bài trên SoundCloud chưa kịp phát, mình quay lại bản nhạc yêu thích nhé ♡'); }
-      }, 6000);
+      }, 15000);
     }
   }
   function pauseMusic() { if (!musicOn) return; musicOn = false; syncSoundUI(); if (audio) audio.pause(); if (scWidget) scWidget.pause(); }
