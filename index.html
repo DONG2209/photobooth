@@ -94,7 +94,7 @@ dialog{border:1px solid #b18b6b40;color:var(--paper);background:#1c161c;padding:
 </dialog>
 <dialog class="letter-dialog" id="letter-dialog" aria-labelledby="letter-title">
   <button class="dialog-close" id="letter-close" aria-label="Đóng thư" type="button">×</button><p class="kicker">Chỉ người anh thương được đọc</p><h2 id="letter-title">Hoàng Tiến à,</h2>
-  <p>Anh thích những tấm ảnh có hai đứa mình. Không phải vì hôm ấy mình lên hình đẹp, mà vì mỗi lần nhìn lại, anh đều nhớ mình đã vui đến thế nào khi ở cạnh em.</p>
+  <p>Anh rất thích những tấm ảnh có hai đứa mình. Không phải vì hôm ấy mình lên hình đẹp, mà vì mỗi lần nhìn lại, anh đều nhớ mình đã vui đến thế nào khi ở cạnh em.</p>
   <p>Nếu có ngày em mệt, cứ quay về đây nhé. Trái tim vẫn đập, những kỷ niệm vẫn còn, và có một người vẫn luôn muốn ôm em thật lâu.</p>
   <p>Cảm ơn em vì đã xuất hiện trong thế giới của anh. Những trang tiếp theo, mình cùng viết nhé?</p><p class="signature">Thương em,<br>Quốc Đồng</p><span class="letter-stamp" aria-hidden="true">QĐ ♡ HT</span>
 </dialog>
@@ -257,7 +257,7 @@ dialog{border:1px solid #b18b6b40;color:var(--paper);background:#1c161c;padding:
     finally { soundOperation = false; }
   });
   document.querySelectorAll('video').forEach(function (video) {
-    video.addEventListener('play', function () { stopMusic(); document.querySelectorAll('video').forEach(function (other) { if (other !== video) other.pause(); }); });
+    video.addEventListener('play', function () { document.querySelectorAll('video').forEach(function (other) { if (other !== video) other.pause(); }); });
     video.closest('details').addEventListener('toggle', function () { if (!this.open) video.pause(); });
   });
 
@@ -327,8 +327,8 @@ dialog{border:1px solid #b18b6b40;color:var(--paper);background:#1c161c;padding:
     motionQuery.addEventListener('change', function (e) { reduceMotion = e.matches; cancelAnimationFrame(heartFrame); heartFrame = 0; startHeart(); });
   }
   document.addEventListener('visibilitychange', function () {
-    if (document.hidden) { cancelAnimationFrame(heartFrame); heartFrame = 0; if (audio && musicOn) audio.pause(); }
-    else { startHeart(); if (audio && musicOn) audio.play().catch(function () {}); }
+    if (document.hidden) { cancelAnimationFrame(heartFrame); heartFrame = 0; }
+    else { startHeart(); }
   });
   if ('IntersectionObserver' in window && !reduceMotion) {
     const observer = new IntersectionObserver(function (entries) { entries.forEach(function (entry) { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }); }, { threshold:.12 });
