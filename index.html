@@ -246,8 +246,20 @@ dialog{border:1px solid #b18b6b40;color:var(--paper);background:#1c161c;padding:
       scReady = false, scPendingPlay = false,
       musicOn = false, started = false, currentTrack = 0, soundOperation = false;
   const playlist = [
-    { kind: 'soundcloud', url: 'https://soundcloud.com/teoneee/light-rain', label: 'Thời Tiết Mưa Nhỏ' },
-    { kind: 'file', src: 'DaoBuocHongkong.mp3', label: 'Dạo Bước Hongkong' }
+    { kind: 'file', src: 'mp3/dao-buoc-hongkong.mp3', label: 'Dạo Bước Hongkong' },
+    { kind: 'file', src: 'mp3/dao-buoc-hongkong-1999.mp3', label: 'Dạo Bước HongKong 1999' },
+    { kind: 'file', src: 'mp3/bien-dao-va-em.mp3', label: 'Biển Đảo Và Em' },
+    { kind: 'file', src: 'mp3/cham-hoa.mp3', label: 'Chăm Hoa' },
+    { kind: 'file', src: 'mp3/co-doi-dieu.mp3', label: 'Có Đôi Điều' },
+    { kind: 'file', src: 'mp3/dam-chim.mp3', label: 'Đắm Chìm' },
+    { kind: 'file', src: 'mp3/in-love.mp3', label: 'In Love' },
+    { kind: 'file', src: 'mp3/perfect.mp3', label: 'Perfect' },
+    { kind: 'file', src: 'mp3/som-muon-thi.mp3', label: 'Sớm Muộn Thì' },
+    { kind: 'file', src: 'mp3/soi-chi-do.mp3', label: 'Sợi Chỉ Đỏ' },
+    { kind: 'file', src: 'mp3/thanh-tan.mp3', label: 'Thanh Tân' },
+    { kind: 'file', src: 'mp3/zuoye-feng-jinxiao-yue.mp3', label: '昨夜风今宵月' },
+    { kind: 'file', src: 'mp3/void.mp3', label: '空白 (Void)' },
+    { kind: 'soundcloud', url: 'https://soundcloud.com/teoneee/light-rain', label: 'Thời Tiết Mưa Nhỏ' }
   ];
   const fileTrackIndex = playlist.findIndex(function (t) { return t.kind === 'file'; });
   const scTrackIndex = playlist.findIndex(function (t) { return t.kind === 'soundcloud'; });
@@ -259,7 +271,7 @@ dialog{border:1px solid #b18b6b40;color:var(--paper);background:#1c161c;padding:
   }
   function ensureAudio() {
     if (audio) return;
-    audio = new Audio(playlist[fileTrackIndex].src); audio.volume = .75;
+    audio = new Audio(); audio.volume = .75;
     audio.addEventListener('ended', function () { if (musicOn) { currentTrack = nextTrackIndex(); startTrack(); } });
   }
   function ensureSoundCloud() {
@@ -282,7 +294,7 @@ dialog{border:1px solid #b18b6b40;color:var(--paper);background:#1c161c;padding:
     const track = playlist[currentTrack];
     musicOn = true; syncSoundUI();
     if (track.kind === 'file') {
-      ensureAudio(); audio.currentTime = 0; audio.play().catch(function () {});
+      ensureAudio(); audio.src = track.src; audio.currentTime = 0; audio.play().catch(function () {});
     } else {
       ensureSoundCloud();
       if (!scWidget) { currentTrack = fileTrackIndex; startTrack(); toast('Bài trên SoundCloud chưa tải được, mình quay lại bản nhạc yêu thích nhé ♡'); return; }
