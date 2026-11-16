@@ -243,11 +243,15 @@ dialog{border:1px solid #b18b6b40;color:var(--paper);background:#1c161c;padding:
 
   // Giai điệu yêu thích của chúng mình — một playlist nhỏ, phát sau khi em chạm nút.
   let audio = null, scWidget = null, scBound = false, scPlaying = false, scWatchdog = null,
+      scReady = false, scPendingPlay = false,
       musicOn = false, started = false, currentTrack = 0, soundOperation = false;
   const playlist = [
-    { kind: 'file', src: 'DaoBuocHongkong.mp3', label: 'Dạo Bước Hongkong' },
-    { kind: 'soundcloud', url: 'https://on.soundcloud.com/GVuc7gzm0CaODhBxH3', label: 'Thời Tiết Mưa Nhỏ' }
+    { kind: 'soundcloud', url: 'https://on.soundcloud.com/GVuc7gzm0CaODhBxH3', label: 'Thời Tiết Mưa Nhỏ' },
+    { kind: 'file', src: 'DaoBuocHongkong.mp3', label: 'Dạo Bước Hongkong' }
   ];
+  const fileTrackIndex = playlist.findIndex(function (t) { return t.kind === 'file'; });
+  const scTrackIndex = playlist.findIndex(function (t) { return t.kind === 'soundcloud'; });
+  function nextTrackIndex() { return (currentTrack + 1) % playlist.length; }
   function syncSoundUI() {
     $('sound-toggle').setAttribute('aria-pressed', String(musicOn));
     $('sound-toggle').setAttribute('aria-label', musicOn ? 'Tắt giai điệu nhẹ' : 'Bật giai điệu nhẹ');
@@ -255,21 +259,21 @@ dialog{border:1px solid #b18b6b40;color:var(--paper);background:#1c161c;padding:
   }
   function ensureAudio() {
     if (audio) return;
-    audio = new Audio(playlist[0].src); audio.volume = .75;
-    audio.addEventListener('ended', function () { if (musicOn) { currentTrack = 1; startTrack(); } });
+    audio = new Audio(playlist[fileTrackIndex].src); audio.volume = .75;
+    audio.addEventListener('ended', function () { if (musicOn) { currentTrack = nextTrackIndex(); startTrack(); } });
   }
   function ensureSoundCloud() {
     if (scWidget) return;
     const frame = document.createElement('iframe');
     frame.setAttribute('aria-hidden', 'true'); frame.setAttribute('allow', 'autoplay'); frame.tabIndex = -1; frame.title = 'SoundCloud';
-    frame.src = 'https://w.soundcloud.com/player/?url=' + encodeURIComponent(playlist[1].url) + '&auto_play=false&buying=false&sharing=false&download=false&show_artwork=false&show_comments=false&show_playcount=false&show_user=false&hide_related=true&visual=false';
+    frame.src = 'https://w.soundcloud.com/player/?url=' + encodeURIComponent(playlist[scTrackIndex].url) + '&auto_play=false&buying=false&sharing=false&download=false&show_artwork=false&show_comments=false&show_playcount=false&show_user=false&hide_related=true&visual=false';
     frame.style.cssText = 'position:fixed;left:-9999px;top:0;width:2px;height:2px;border:0';
     document.body.appendChild(frame);
     if (window.SC) scWidget = window.SC.Widget(frame);
     if (scWidget && !scBound) {
       scBound = true;
-      scWidget.bind(window.SC.Widget.Events.READY, function () { scWidget.setVolume(75); });
-      scWidget.bind(window.SC.Widget.Events.FINISH, function () { if (musicOn) { currentTrack = 0; startTrack(); } });
+      scWidget.bind(window.SC.Widget.Events.READY, function () { scReady = true; scWidget.setVolume(75); if (scPendingPlay) { scPendingPlay = false; scWidget.seekTo(0); scWidget.play(); } });
+      scWidget.bind(window.SC.Widget.Events.FINISH, function () { if (musicOn) { currentTrack = nextTrackIndex(); startTrack(); } });
       scWidget.bind(window.SC.Widget.Events.PLAY, function () { scPlaying = true; clearTimeout(scWatchdog); });
       scWidget.bind(window.SC.Widget.Events.PAUSE, function () { scPlaying = false; });
     }
@@ -281,12 +285,13 @@ dialog{border:1px solid #b18b6b40;color:var(--paper);background:#1c161c;padding:
       ensureAudio(); audio.currentTime = 0; audio.play().catch(function () {});
     } else {
       ensureSoundCloud();
-      if (!scWidget) { currentTrack = 0; startTrack(); toast('Bài trên SoundCloud chưa tải được, mình quay lại bản nhạc yêu thích nhé ♡'); return; }
+      if (!scWidget) { currentTrack = fileTrackIndex; startTrack(); toast('Bài trên SoundCloud chưa tải được, mình quay lại bản nhạc yêu thích nhé ♡'); return; }
       scPlaying = false;
-      scWidget.seekTo(0); scWidget.play();
+      if (scReady) { scWidget.seekTo(0); scWidget.play(); }
+      else { scPendingPlay = true; }
       clearTimeout(scWatchdog);
       scWatchdog = setTimeout(function () {
-        if (musicOn && currentTrack === 1 && !scPlaying) { currentTrack = 0; startTrack(); toast('Bài trên SoundCloud chưa kịp phát, mình quay lại bản nhạc yêu thích nhé ♡'); }
+        if (musicOn && playlist[currentTrack].kind === 'soundcloud' && !scPlaying) { currentTrack = fileTrackIndex; startTrack(); toast('Bài trên SoundCloud chưa kịp phát, mình quay lại bản nhạc yêu thích nhé ♡'); }
       }, 6000);
     }
   }
@@ -297,7 +302,7 @@ dialog{border:1px solid #b18b6b40;color:var(--paper);background:#1c161c;padding:
       if (musicOn) { pauseMusic(); return; }
       if (!started) { started = true; currentTrack = 0; ensureAudio(); ensureSoundCloud(); startTrack(); }
       else if (playlist[currentTrack].kind === 'file') { ensureAudio(); audio.play().catch(function () {}); musicOn = true; syncSoundUI(); }
-      else { ensureSoundCloud(); if (!scWidget) { currentTrack = 0; startTrack(); } else { scWidget.play(); musicOn = true; syncSoundUI(); } }
+      else { ensureSoundCloud(); if (!scWidget) { currentTrack = fileTrackIndex; startTrack(); } else { scWidget.play(); musicOn = true; syncSoundUI(); } }
     } catch (_) { musicOn = false; syncSoundUI(); toast('Chưa bật được giai điệu, em thử chạm lại nhé.'); }
     finally { soundOperation = false; }
   });
